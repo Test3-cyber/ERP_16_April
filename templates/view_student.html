@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Details - School ERP System{% endblock %}
+
+{% block page_title %}Student Details{% endblock %}
+
+{% block content %}
+<div class="view-student-wrapper">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">{{ student.first_name }} {{ student.last_name }}</h5>
+                    <div>
+                        <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i> Edit
+                        </a>
+                        <a href="{{ url_for('students') }}" class="btn btn-secondary ms-2">
+                            <i class="fas fa-arrow-left me-2"></i> Back
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="student-profile-pic">
+                                <i class="fas fa-user-graduate fa-6x text-secondary mb-3"></i>
+                            </div>
+                            <h4>{{ student.first_name }} {{ student.last_name }}</h4>
+                            <p class="text-muted">{{ student.class }} - {{ student.section }}</p>
+                            <div class="student-quick-info mt-3">
+                                <span class="badge bg-primary">Roll No: {{ student.roll_no }}</span>
+                                <span class="badge bg-info">Admission No: {{ student.admission_no }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Personal Information</h5>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <th width="40%">Full Name</th>
+                                            <td width="60%">{{ student.first_name }} {{ student.last_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <td>{{ student.gender }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date of Birth</th>
+                                            <td>{{ student.dob }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ student.address }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <h5>Academic Information</h5>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <th width="40%">Class</th>
+                                            <td width="60%">{{ student.class }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Section</th>
+                                            <td>{{ student.section }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Roll No</th>
+                                            <td>{{ student.roll_no }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Admission No</th>
+                                            <td>{{ student.admission_no }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Admission Date</th>
+                                            <td>{{ student.admission_date }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h5>Parent/Guardian Information</h5>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <th width="20%">Name</th>
+                                            <td width="30%">{{ student.parent_name }}</td>
+                                            <th width="20%">Contact</th>
+                                            <td width="30%">{{ student.contact }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td colspan="3">{{ student.email }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Fee Payment History</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Receipt No</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="text-center">No payment records found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Attendance Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="text-center">No attendance records found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Academic Performance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Exam</th>
+                                    <th>Subject</th>
+                                    <th>Marks Obtained</th>
+                                    <th>Max Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">No exam records found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-end mb-4">
+            <a href="{{ url_for('students') }}" class="btn btn-secondary me-2">
+                <i class="fas fa-arrow-left me-2"></i> Back to Students List
+            </a>
+            <button type="button" class="btn btn-info me-2 print-element" data-print-target="studentProfileCard">
+                <i class="fas fa-print me-2"></i> Print Profile
+            </button>
+            <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-warning">
+                <i class="fas fa-edit me-2"></i> Edit Profile
+            </a>
+        </div>
+    </div>
+    
+    <!-- Hidden Student Profile Card for Printing -->
+    <div id="studentProfileCard" style="display: none;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="margin-bottom: 5px;">SCHOOL NAME</h2>
+                <p style="margin: 0; color: #666;">123 School Street, City, State, PIN</p>
+                <h3 style="margin-top: 20px;">STUDENT PROFILE</h3>
+            </div>
+            
+            <div style="display: flex; margin-bottom: 20px;">
+                <div style="width: 150px; height: 150px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
+                    <span style="font-size: 100px; color: #ccc;">👤</span>
+                </div>
+                <div>
+                    <h3 style="margin: 0;">{{ student.first_name }} {{ student.last_name }}</h3>
+                    <p style="margin: 5px 0;">Class: {{ student.class }} - {{ student.section }}</p>
+                    <p style="margin: 5px 0;">Roll No: {{ student.roll_no }}</p>
+                    <p style="margin: 5px 0;">Admission No: {{ student.admission_no }}</p>
+                    <p style="margin: 5px 0;">Admission Date: {{ student.admission_date }}</p>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">Personal Information</h4>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <th style="width: 30%; text-align: left; padding: 8px 0;">Full Name</th>
+                        <td style="width: 70%; padding: 8px 0;">{{ student.first_name }} {{ student.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 8px 0;">Gender</th>
+                        <td style="padding: 8px 0;">{{ student.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 8px 0;">Date of Birth</th>
+                        <td style="padding: 8px 0;">{{ student.dob }}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 8px 0;">Address</th>
+                        <td style="padding: 8px 0;">{{ student.address }}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">Parent/Guardian Information</h4>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <th style="width: 30%; text-align: left; padding: 8px 0;">Name</th>
+                        <td style="width: 70%; padding: 8px 0;">{{ student.parent_name }}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 8px 0;">Contact</th>
+                        <td style="padding: 8px 0;">{{ student.contact }}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 8px 0;">Email</th>
+                        <td style="padding: 8px 0;">{{ student.email }}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #666;">
+                <p>This document is computer-generated and does not require a signature.</p>
+                <p>Printed on: {{ current_year }}-{{ '%02d' % current_month }}-{{ '%02d' % current_day }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

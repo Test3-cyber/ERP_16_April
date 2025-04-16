@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School ERP System{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fee-collection.css') }}">
+    
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <button class="btn btn-link text-light me-2 d-lg-none" id="mobile-sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-school me-2"></i>
+                School ERP
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell me-2"></i>
+                            <span class="badge bg-danger rounded-pill">3</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus me-2 text-primary"></i> New student registered</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-money-bill-wave me-2 text-success"></i> Fee payment received</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-alt me-2 text-info"></i> New event scheduled</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-2"></i>
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar and Content -->
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="{{ url_for('index') }}" class="sidebar-link {% if request.path == url_for('index') %}active{% endif %}">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('students') }}" class="sidebar-link {% if '/students' in request.path %}active{% endif %}">
+                <i class="fas fa-user-graduate"></i>
+                <span>Students</span>
+            </a>
+            <a href="{{ url_for('staff') }}" class="sidebar-link {% if '/staff' in request.path %}active{% endif %}">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Staff</span>
+            </a>
+            <a href="{{ url_for('attendance') }}" class="sidebar-link {% if '/attendance' in request.path %}active{% endif %}">
+                <i class="fas fa-calendar-check"></i>
+                <span>Attendance</span>
+            </a>
+            <a href="{{ url_for('academics') }}" class="sidebar-link {% if '/academics' in request.path %}active{% endif %}">
+                <i class="fas fa-book"></i>
+                <span>Academics</span>
+            </a>
+            <a href="{{ url_for('fee_collection') }}" class="sidebar-link {% if '/fee-collection' in request.path %}active{% endif %}">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Fee Collection</span>
+            </a>
+            <a href="{{ url_for('inventory') }}" class="sidebar-link {% if '/inventory' in request.path %}active{% endif %}">
+                <i class="fas fa-boxes"></i>
+                <span>Inventory</span>
+            </a>
+            <a href="{{ url_for('finance') }}" class="sidebar-link {% if '/finance' in request.path %}active{% endif %}">
+                <i class="fas fa-chart-line"></i>
+                <span>Finance</span>
+            </a>
+            <a href="{{ url_for('reports') }}" class="sidebar-link {% if '/reports' in request.path %}active{% endif %}">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </a>
+            <a href="{{ url_for('events') }}" class="sidebar-link {% if '/events' in request.path %}active{% endif %}">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Events</span>
+            </a>
+            <a href="{{ url_for('notices') }}" class="sidebar-link {% if '/notices' in request.path %}active{% endif %}">
+                <i class="fas fa-bullhorn"></i>
+                <span>Notices</span>
+            </a>
+            <a href="{{ url_for('download_zip') }}" class="sidebar-link">
+                <i class="fas fa-download"></i>
+                <span>Download System</span>
+            </a>
+        </div>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="container-fluid p-0">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                                {% block breadcrumb %}{% endblock %}
+                                <li class="breadcrumb-item active" aria-current="page">{% block current_page %}Dashboard{% endblock %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Main Content -->
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-5">
+                <div class="text-center">
+                    &copy; {{ current_year }} School ERP System. All rights reserved.
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

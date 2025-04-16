@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}Staff Management - School ERP System{% endblock %}
+
+{% block page_title %}Staff Management{% endblock %}
+
+{% block content %}
+<div class="staff-wrapper">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Staff Directory</h5>
+                    <a href="{{ url_for('add_staff') }}" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i> Add New Staff
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Contact</th>
+                                    <th>Join Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if staff %}
+                                    {% for member in staff %}
+                                        <tr>
+                                            <td>{{ member.employee_id }}</td>
+                                            <td>{{ member.first_name }} {{ member.last_name }}</td>
+                                            <td>{{ member.role }}</td>
+                                            <td>{{ member.department }}</td>
+                                            <td>{{ member.contact }}</td>
+                                            <td>{{ member.join_date }}</td>
+                                            <td>
+                                                <a href="#" class="table-action-btn view" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="table-action-btn edit" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="table-action-btn delete" title="Delete" onclick="confirmDelete('{{ member.id }}', '{{ member.first_name }} {{ member.last_name }}')">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No staff members found. <a href="{{ url_for('add_staff') }}">Add a staff member</a> to get started.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Staff by Department</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Teaching
+                            <span class="badge bg-primary rounded-pill">{{ staff|selectattr('department', 'equalto', 'Teaching')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Administration
+                            <span class="badge bg-primary rounded-pill">{{ staff|selectattr('department', 'equalto', 'Administration')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Support Staff
+                            <span class="badge bg-primary rounded-pill">{{ staff|selectattr('department', 'equalto', 'Support Staff')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Accounting
+                            <span class="badge bg-primary rounded-pill">{{ staff|selectattr('department', 'equalto', 'Accounting')|list|length }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Staff by Role</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Teachers
+                            <span class="badge bg-success rounded-pill">{{ staff|selectattr('role', 'equalto', 'Teacher')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Admin Staff
+                            <span class="badge bg-success rounded-pill">{{ staff|selectattr('role', 'equalto', 'Admin')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Coordinators
+                            <span class="badge bg-success rounded-pill">{{ staff|selectattr('role', 'equalto', 'Coordinator')|list|length }}</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Accounts
+                            <span class="badge bg-success rounded-pill">{{ staff|selectattr('role', 'equalto', 'Accountant')|list|length }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('add_staff') }}" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-2"></i> Add New Staff
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <i class="fas fa-file-excel me-2"></i> Export Staff List
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <i class="fas fa-id-card me-2"></i> Print ID Cards
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-file-import me-2"></i> Import Staff Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the staff member <span id="staffNameToDelete"></span>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" id="confirmDeleteBtn" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function confirmDelete(staffId, staffName) {
+        document.getElementById('staffNameToDelete').textContent = staffName;
+        document.getElementById('confirmDeleteBtn').href = `/staff/delete/${staffId}`;
+        
+        const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+        modal.show();
+    }
+</script>
+{% endblock %}

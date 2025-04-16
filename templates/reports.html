@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports - School ERP System{% endblock %}
+
+{% block page_title %}Reports Generation{% endblock %}
+
+{% block content %}
+<div class="reports-wrapper">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Generate Reports</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('generate_report') }}" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="report_type" class="form-label">Report Type</label>
+                                <select class="form-select" id="report_type" name="report_type" required>
+                                    <option value="">Select Report Type</option>
+                                    <option value="fee_collection">Fee Collection Report</option>
+                                    <option value="student_attendance">Student Attendance Report</option>
+                                    <option value="exam_results">Exam Results Report</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="date_from" class="form-label">From Date</label>
+                                <input type="date" class="form-control datepicker" id="date_from" name="date_from">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="date_to" class="form-label">To Date</label>
+                                <input type="date" class="form-control datepicker" id="date_to" name="date_to">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 text-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-file-download me-2"></i> Generate Report
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Fee Collection Report</h5>
+                </div>
+                <div class="card-body">
+                    <div class="report-description mb-3">
+                        <p>This report provides detailed information about fee collections within a specified time period. The report includes:</p>
+                        <ul>
+                            <li>Student-wise fee collection details</li>
+                            <li>Payment method distribution</li>
+                            <li>Daily/Monthly collection summary</li>
+                            <li>Outstanding fee information</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-file-invoice-dollar fa-4x text-primary mb-3"></i>
+                        <p>Generate this report to analyze fee collection trends and revenue streams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Student Attendance Report</h5>
+                </div>
+                <div class="card-body">
+                    <div class="report-description mb-3">
+                        <p>This report provides comprehensive information about student attendance patterns. The report includes:</p>
+                        <ul>
+                            <li>Class-wise attendance statistics</li>
+                            <li>Individual student attendance percentage</li>
+                            <li>Absence patterns and trends</li>
+                            <li>Monthly attendance summary</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-calendar-check fa-4x text-success mb-3"></i>
+                        <p>Generate this report to monitor attendance trends and identify issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Exam Results Report</h5>
+                </div>
+                <div class="card-body">
+                    <div class="report-description mb-3">
+                        <p>This report provides detailed analysis of student performance in exams. The report includes:</p>
+                        <ul>
+                            <li>Class-wise performance metrics</li>
+                            <li>Subject-wise performance analysis</li>
+                            <li>Individual student result cards</li>
+                            <li>Grade distribution statistics</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-graduation-cap fa-4x text-info mb-3"></i>
+                        <p>Generate this report to evaluate academic performance and identify areas for improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Custom Reports</h5>
+                </div>
+                <div class="card-body">
+                    <div class="report-description mb-3">
+                        <p>Need a specialized report not listed here? Our system can generate custom reports based on your specific requirements. Contact the administrator to request custom reports such as:</p>
+                        <ul>
+                            <li>Inventory utilization reports</li>
+                            <li>Staff performance analytics</li>
+                            <li>Financial forecast projections</li>
+                            <li>Resource allocation efficiency</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-cogs fa-4x text-warning mb-3"></i>
+                        <p>Custom reports provide deeper insights tailored to your specific needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

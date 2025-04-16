@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}Finance Management - School ERP System{% endblock %}
+
+{% block page_title %}Finance Management{% endblock %}
+
+{% block content %}
+<div class="finance-wrapper">
+    <!-- Overview Stats -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Revenue</h5>
+                    <div class="stats-icon bg-success">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="stats-number">₹{{ "{:,.2f}".format(total_revenue) }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Expenses</h5>
+                    <div class="stats-icon bg-danger">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="stats-number">₹{{ "{:,.2f}".format(total_expenses) }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <h5 class="card-title">Net Profit</h5>
+                    <div class="stats-icon {% if net_profit >= 0 %}bg-info{% else %}bg-warning{% endif %}">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="stats-number {% if net_profit < 0 %}text-danger{% endif %}">₹{{ "{:,.2f}".format(net_profit) }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Monthly Revenue</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <img src="data:image/png;base64,{{ revenue_chart }}" class="img-fluid" alt="Monthly Revenue">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Monthly Expenses</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <img src="data:image/png;base64,{{ expenses_chart }}" class="img-fluid" alt="Monthly Expenses">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Expense Categories Chart -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Expense Distribution by Category</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <img src="data:image/png;base64,{{ categories_chart }}" class="img-fluid" alt="Expense Categories">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Transactions & Expenses -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Recent Fee Collections</h5>
+                    <a href="{{ url_for('fee_collection') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus me-1"></i> Collect Fees
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Receipt No.</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if recent_transactions %}
+                                    {% for transaction in recent_transactions %}
+                                        <tr>
+                                            <td>{{ transaction.receipt_no }}</td>
+                                            <td>{{ transaction.payment_date }}</td>
+                                            <td>₹{{ transaction.amount }}</td>
+                                            <td>{{ transaction.payment_method }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No recent transactions</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Recent Expenses</h5>
+                    <a href="{{ url_for('add_expense') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus me-1"></i> Add Expense
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Approved By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if recent_expenses %}
+                                    {% for expense in recent_expenses %}
+                                        <tr>
+                                            <td>{{ expense.date }}</td>
+                                            <td>{{ expense.category }}</td>
+                                            <td>₹{{ expense.amount }}</td>
+                                            <td>{{ expense.approved_by }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No recent expenses</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

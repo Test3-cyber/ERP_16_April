@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Event - School ERP System{% endblock %}
+
+{% block page_title %}Add New Event{% endblock %}
+{% block current_page %}Events{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Event Details</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('add_event') }}" method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="title" class="form-label">Event Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="time" class="form-label">Time <span class="text-danger">*</span></label>
+                            <input type="time" class="form-control" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="organizer" class="form-label">Organizer <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="organizer" name="organizer" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="event_type" class="form-label">Event Type</label>
+                            <select class="form-select" id="event_type" name="event_type">
+                                <option value="academic">Academic</option>
+                                <option value="cultural">Cultural</option>
+                                <option value="sports">Sports</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Upcoming">Upcoming</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="participants" class="form-label">Participants</label>
+                            <select class="form-select" id="participants" name="participants">
+                                <option value="all_students">All Students</option>
+                                <option value="all_staff">All Staff</option>
+                                <option value="all">All Students and Staff</option>
+                                <option value="primary">Primary Section (Class 1-5)</option>
+                                <option value="middle">Middle Section (Class 6-8)</option>
+                                <option value="secondary">Secondary Section (Class 9-10)</option>
+                                <option value="senior_secondary">Senior Secondary (Class 11-12)</option>
+                                <option value="custom">Custom Selection</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3" id="customParticipantsSection" style="display: none;">
+                        <div class="col-md-12">
+                            <label class="form-label">Select Classes</label>
+                            <div class="row">
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 1" id="class1">
+                                        <label class="form-check-label" for="class1">Class 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 2" id="class2">
+                                        <label class="form-check-label" for="class2">Class 2</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 3" id="class3">
+                                        <label class="form-check-label" for="class3">Class 3</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 4" id="class4">
+                                        <label class="form-check-label" for="class4">Class 4</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 5" id="class5">
+                                        <label class="form-check-label" for="class5">Class 5</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 6" id="class6">
+                                        <label class="form-check-label" for="class6">Class 6</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 7" id="class7">
+                                        <label class="form-check-label" for="class7">Class 7</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 8" id="class8">
+                                        <label class="form-check-label" for="class8">Class 8</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 9" id="class9">
+                                        <label class="form-check-label" for="class9">Class 9</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 10" id="class10">
+                                        <label class="form-check-label" for="class10">Class 10</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 11" id="class11">
+                                        <label class="form-check-label" for="class11">Class 11</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="classes[]" value="Class 12" id="class12">
+                                        <label class="form-check-label" for="class12">Class 12</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sendNotification" name="send_notification" checked>
+                                <label class="form-check-label" for="sendNotification">Send notification to participants</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('events') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const participantsSelect = document.getElementById('participants');
+    const customParticipantsSection = document.getElementById('customParticipantsSection');
+    
+    participantsSelect.addEventListener('change', function() {
+        if (this.value === 'custom') {
+            customParticipantsSection.style.display = 'block';
+        } else {
+            customParticipantsSection.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

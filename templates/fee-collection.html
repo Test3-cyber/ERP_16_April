@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+
+{% block title %}Fee Collection - School ERP System{% endblock %}
+
+{% block page_title %}Fee Collection{% endblock %}
+{% block current_page %}Fee Collection{% endblock %}
+
+{% block content %}
+<div class="fee-collection-wrapper">
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Fee Collection</h5>
+                    <div class="d-flex">
+                        <button class="btn btn-primary me-2" id="add-fee-btn">
+                            <i class="fas fa-plus me-2"></i> Add Fee
+                        </button>
+                        <button class="btn btn-success me-2" id="open-reports-modal" disabled>
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i> Select a class and student to collect fees. You can add multiple fee items and generate a receipt.
+                    </div>
+
+                    <!-- Student Info Section (Hidden initially) -->
+                    <div id="student-info-section" class="mb-4" style="display: none;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                <h5 class="card-title mb-0">Student Information</h5>
+                                <button class="btn btn-sm btn-outline-secondary" id="hide-student-info">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Student Name</label>
+                                            <div class="form-control-plaintext" id="student-name">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Class</label>
+                                            <div class="form-control-plaintext" id="student-class">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Admission No</label>
+                                            <div class="form-control-plaintext" id="student-admission-no">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Parent Name</label>
+                                            <div class="form-control-plaintext" id="parent-name">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Fee Status</label>
+                                            <div id="fee-status-badge">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Contact</label>
+                                            <div class="form-control-plaintext" id="parent-contact">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Previous Transactions</label>
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-primary" id="view-transactions-btn">
+                                                    <i class="fas fa-history me-2"></i> View Transactions
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fee Details Section (Hidden initially) -->
+                    <div id="fee-section" style="display: none;">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title mb-0">Fee Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Add Fee Items</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" id="fee-type-search" placeholder="Search fee type or enter custom" autocomplete="off">
+                                                    <button class="btn btn-primary" type="button" id="add-fee-item-btn">
+                                                        <i class="fas fa-plus"></i> Add
+                                                    </button>
+                                                    <div class="fee-type-list" id="fee-type-list"></div>
+                                                </div>
+                                                <div class="form-text" id="fee-type-hint">Start typing to search or select from the dropdown</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₹</span>
+                                                    <input type="number" class="form-control" id="fee-amount" placeholder="Amount" min="0" step="0.01">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button class="btn btn-secondary" type="button" id="show-all-fee-types">
+                                                    <i class="fas fa-list me-2"></i> Show All Fee Types
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Added Fee Items</label>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover" id="fee-items-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fee Type</th>
+                                                        <th>Amount (₹)</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="fee-items-list">
+                                                    <tr id="no-fee-items-row">
+                                                        <td colspan="3" class="text-center">No fee items added yet</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="table-light">
+                                                        <th>Total</th>
+                                                        <th id="fee-total">₹0.00</th>
+                                                        <th>
+                                                            <button class="btn btn-sm btn-danger" id="clear-all-fees" disabled>
+                                                                <i class="fas fa-trash-alt me-2"></i> Clear All
+                                                            </button>
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Payment Details</label>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Receipt No</label>
+                                                    <input type="text" class="form-control" id="receipt-no" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="payment-date" value="{{ current_date }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Payment Mode</label>
+                                                    <select class="form-select" id="payment-mode">
+                                                        <option value="Cash">Cash</option>
+                                                        <option value="Cheque">Cheque</option>
+                                                        <option value="Online">Online Transfer</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Amount Paid</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="amount-paid" min="0" step="0.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Cheque Details (Hidden initially) -->
+                                        <div id="cheque-details" class="row payment-method-details">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Cheque No</label>
+                                                    <input type="text" class="form-control" id="cheque-no">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Bank Name</label>
+                                                    <input type="text" class="form-control" id="bank-name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Cheque Date</label>
+                                                    <input type="date" class="form-control" id="cheque-date" value="{{ current_date }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Online Transfer Details (Hidden initially) -->
+                                        <div id="online-details" class="row payment-method-details">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Transaction ID</label>
+                                                    <input type="text" class="form-control" id="transaction-id">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Bank Name</label>
+                                                    <input type="text" class="form-control" id="online-bank-name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Remarks</label>
+                                                    <textarea class="form-control" id="remarks" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-3">
+                                            <div class="col-md-12 text-end">
+                                                <button class="btn btn-lg btn-success" id="process-payment-btn">
+                                                    <i class="fas fa-check-circle me-2"></i> Process Payment
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Class Selection Modal -->
+    <div class="modal fade" id="class-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Class & Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="class-search" class="form-label">Select Class</label>
+                        <div class="dropdown">
+                            <input type="text" class="form-control mb-2" id="class-search" placeholder="Type to search class..." onclick="toggleClassList()">
+                            <select class="form-select" id="class-select" size="5" style="height: 150px; display: none;">
+                                <option value="">-- Select Class --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="student-search" class="form-label">Select Student</label>
+                        <div class="dropdown">
+                            <input type="text" class="form-control mb-2" id="student-search" placeholder="Type to search student..." disabled onclick="toggleStudentList()">
+                            <select class="form-select" id="student-select" size="5" style="height: 150px; display: none;" disabled>
+                                <option value="">-- Select Student --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="select-student-btn" disabled>Select Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reports Modal -->
+    <div class="modal fade" id="reports-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Fee Reports</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Student Fee Report</h5>
+                                    <p class="card-text">View complete fee details for a specific student</p>
+                                    <button class="btn btn-primary" id="student-fee-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Class Fee Report</h5>
+                                    <p class="card-text">View fee collection summary for a class</p>
+                                    <button class="btn btn-primary" id="class-fee-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Fee Collection Summary</h5>
+                                    <p class="card-text">View overall fee collection statistics</p>
+                                    <button class="btn btn-primary" id="fee-summary-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reports Modal -->
+    <div class="modal fade" id="reports-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Fee Reports</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Student Fee Report</h5>
+                                    <p class="card-text">View complete fee details for a specific student</p>
+                                    <button class="btn btn-primary" id="student-fee-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Class Fee Report</h5>
+                                    <p class="card-text">View fee collection summary for a class</p>
+                                    <button class="btn btn-primary" id="class-fee-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Fee Collection Summary</h5>
+                                    <p class="card-text">View overall fee collection statistics</p>
+                                    <button class="btn btn-primary" id="fee-summary-report-btn">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fee Types Modal -->
+    <div class="modal fade" id="fee-types-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">All Fee Types</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fee Type</th>
+                                    <th>Description</th>
+                                    <th>Amount (₹)</th>
+                                    <th>Frequency</th>
+                                    <th>Class</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all-fee-types-list">
+                                <!-- Fee types will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transaction History Modal -->
+    <div class="modal fade" id="transaction-history-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Transaction History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Receipt No</th>
+                                    <th>Date</th>
+                                    <th>Amount (₹)</th>
+                                    <th>Payment Method</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transaction-history-list">
+                                <!-- Transaction history will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/fee-collection.js') }}"></script>
+{% endblock %}

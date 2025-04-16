@@ -1,0 +1,533 @@
+{% extends 'base.html' %}
+
+{% block title %}Events - School ERP System{% endblock %}
+
+{% block page_title %}Events Management{% endblock %}
+{% block current_page %}Events{% endblock %}
+
+{% block content %}
+<div class="events-wrapper">
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Manage Events</h5>
+                    <a href="{{ url_for('add_event') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i> Add Event
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="eventSearch" placeholder="Search events...">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="eventStatusFilter">
+                                <option value="all">All Status</option>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="eventTypeFilter">
+                                <option value="all">All Types</option>
+                                <option value="academic">Academic</option>
+                                <option value="cultural">Cultural</option>
+                                <option value="sports">Sports</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="eventsTable">
+                            <thead>
+                                <tr>
+                                    <th>Event Title</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                    <th>Organizer</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if events %}
+                                    {% for event in events %}
+                                    <tr>
+                                        <td>{{ event.title }}</td>
+                                        <td>{{ event.date }}</td>
+                                        <td>{{ event.time }}</td>
+                                        <td>{{ event.location }}</td>
+                                        <td>{{ event.organizer }}</td>
+                                        <td>
+                                            {% if event.status == 'Upcoming' %}
+                                                <span class="badge bg-primary">Upcoming</span>
+                                            {% elif event.status == 'Ongoing' %}
+                                                <span class="badge bg-success">Ongoing</span>
+                                            {% elif event.status == 'Completed' %}
+                                                <span class="badge bg-secondary">Completed</span>
+                                            {% elif event.status == 'Cancelled' %}
+                                                <span class="badge bg-danger">Cancelled</span>
+                                            {% else %}
+                                                <span class="badge bg-info">{{ event.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-primary view-event" data-id="{{ event.id }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-info edit-event" data-id="{{ event.id }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-danger delete-event" data-id="{{ event.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>Annual Sports Day</td>
+                                    <td>15-12-2023</td>
+                                    <td>9:00 AM - 4:00 PM</td>
+                                    <td>School Playground</td>
+                                    <td>Sports Department</td>
+                                    <td><span class="badge bg-primary">Upcoming</span></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Parent-Teacher Meeting</td>
+                                    <td>20-11-2023</td>
+                                    <td>10:00 AM - 2:00 PM</td>
+                                    <td>School Auditorium</td>
+                                    <td>Principal's Office</td>
+                                    <td><span class="badge bg-primary">Upcoming</span></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Science Exhibition</td>
+                                    <td>25-10-2023</td>
+                                    <td>9:30 AM - 3:30 PM</td>
+                                    <td>School Labs</td>
+                                    <td>Science Department</td>
+                                    <td><span class="badge bg-secondary">Completed</span></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Career Counseling Workshop</td>
+                                    <td>15-09-2023</td>
+                                    <td>10:00 AM - 12:00 PM</td>
+                                    <td>Conference Hall</td>
+                                    <td>Guidance Cell</td>
+                                    <td><span class="badge bg-secondary">Completed</span></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Teachers' Day Celebration</td>
+                                    <td>05-09-2023</td>
+                                    <td>11:00 AM - 1:00 PM</td>
+                                    <td>School Auditorium</td>
+                                    <td>Student Council</td>
+                                    <td><span class="badge bg-secondary">Completed</span></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Calendar View -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Events Calendar</h5>
+                </div>
+                <div class="card-body">
+                    <div class="calendar-wrapper p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="calendar-month">November 2023</h5>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary" id="prevMonth">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-outline-primary" id="nextMonth">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-bordered calendar-table">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted">29</td>
+                                    <td class="text-muted">30</td>
+                                    <td class="text-muted">31</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>15
+                                        <div class="calendar-event bg-primary">Annual Sports Day</div>
+                                    </td>
+                                    <td>16</td>
+                                    <td>17</td>
+                                    <td>18</td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>20
+                                        <div class="calendar-event bg-info">PTM</div>
+                                    </td>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                    <td>24</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                    <td>29</td>
+                                    <td>30</td>
+                                    <td class="text-muted">1</td>
+                                    <td class="text-muted">2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Upcoming Events -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Upcoming Events</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card event-card">
+                                <div class="card-body">
+                                    <div class="event-date">
+                                        <span class="event-month">Dec</span>
+                                        <span class="event-day">15</span>
+                                    </div>
+                                    <h5 class="card-title">Annual Sports Day</h5>
+                                    <p class="card-text">
+                                        <i class="fas fa-clock me-2"></i> 9:00 AM - 4:00 PM<br>
+                                        <i class="fas fa-map-marker-alt me-2"></i> School Playground<br>
+                                        <i class="fas fa-user me-2"></i> Sports Department
+                                    </p>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card event-card">
+                                <div class="card-body">
+                                    <div class="event-date">
+                                        <span class="event-month">Nov</span>
+                                        <span class="event-day">20</span>
+                                    </div>
+                                    <h5 class="card-title">Parent-Teacher Meeting</h5>
+                                    <p class="card-text">
+                                        <i class="fas fa-clock me-2"></i> 10:00 AM - 2:00 PM<br>
+                                        <i class="fas fa-map-marker-alt me-2"></i> School Auditorium<br>
+                                        <i class="fas fa-user me-2"></i> Principal's Office
+                                    </p>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card event-card">
+                                <div class="card-body">
+                                    <div class="event-date">
+                                        <span class="event-month">Jan</span>
+                                        <span class="event-day">10</span>
+                                    </div>
+                                    <h5 class="card-title">Annual Function</h5>
+                                    <p class="card-text">
+                                        <i class="fas fa-clock me-2"></i> 5:00 PM - 9:00 PM<br>
+                                        <i class="fas fa-map-marker-alt me-2"></i> School Auditorium<br>
+                                        <i class="fas fa-user me-2"></i> Cultural Committee
+                                    </p>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="event-detail-content">
+                    <h4 id="eventTitle">Annual Sports Day</h4>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-calendar me-2"></i> Date:</strong> <span id="eventDate">15-12-2023</span></p>
+                            <p><strong><i class="fas fa-clock me-2"></i> Time:</strong> <span id="eventTime">9:00 AM - 4:00 PM</span></p>
+                            <p><strong><i class="fas fa-map-marker-alt me-2"></i> Location:</strong> <span id="eventLocation">School Playground</span></p>
+                            <p><strong><i class="fas fa-user me-2"></i> Organizer:</strong> <span id="eventOrganizer">Sports Department</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-tag me-2"></i> Category:</strong> <span id="eventCategory">Sports</span></p>
+                            <p><strong><i class="fas fa-users me-2"></i> Participants:</strong> <span id="eventParticipants">All Students</span></p>
+                            <p><strong><i class="fas fa-info-circle me-2"></i> Status:</strong> <span class="badge bg-primary" id="eventStatus">Upcoming</span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5><i class="fas fa-align-left me-2"></i> Description</h5>
+                            <p id="eventDescription">
+                                Annual sports day will be held on 15th December with various sports activities and competitions.
+                                All students are expected to participate. Parents are cordially invited to attend the event.
+                                Refreshments will be provided. The winners will be awarded with medals and certificates during
+                                the closing ceremony.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Edit Event</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Event search functionality
+    const eventSearch = document.getElementById('eventSearch');
+    const eventTable = document.getElementById('eventsTable');
+    const eventRows = eventTable ? eventTable.querySelectorAll('tbody tr') : [];
+    
+    // Status and type filters
+    const statusFilter = document.getElementById('eventStatusFilter');
+    const typeFilter = document.getElementById('eventTypeFilter');
+    
+    // Initialize event listeners
+    if (eventSearch) {
+        eventSearch.addEventListener('input', filterEvents);
+    }
+    
+    if (statusFilter) {
+        statusFilter.addEventListener('change', filterEvents);
+    }
+    
+    if (typeFilter) {
+        typeFilter.addEventListener('change', filterEvents);
+    }
+    
+    // Details view buttons
+    document.querySelectorAll('.view-event').forEach(button => {
+        button.addEventListener('click', function() {
+            const eventId = this.getAttribute('data-id');
+            showEventDetails(eventId);
+        });
+    });
+    
+    // Function to filter events
+    function filterEvents() {
+        const searchText = eventSearch ? eventSearch.value.toLowerCase() : '';
+        const selectedStatus = statusFilter ? statusFilter.value : 'all';
+        const selectedType = typeFilter ? typeFilter.value : 'all';
+        
+        eventRows.forEach(row => {
+            const title = row.cells[0].textContent.toLowerCase();
+            const status = row.cells[5].textContent.toLowerCase();
+            
+            // Using a default type since we don't have a type column
+            const type = 'academic'; // This would be replaced with actual data
+            
+            const searchMatch = title.includes(searchText);
+            const statusMatch = selectedStatus === 'all' || status.includes(selectedStatus);
+            const typeMatch = selectedType === 'all' || type === selectedType;
+            
+            if (searchMatch && statusMatch && typeMatch) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    
+    // Function to show event details
+    function showEventDetails(eventId) {
+        // Here you would fetch event details from the server
+        // For now, we'll just show the modal with sample data
+        const eventModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+        eventModal.show();
+    }
+    
+    // Calendar navigation buttons
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const calendarMonth = document.querySelector('.calendar-month');
+    
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    
+    if (prevMonthBtn) {
+        prevMonthBtn.addEventListener('click', function() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendarHeader();
+        });
+    }
+    
+    if (nextMonthBtn) {
+        nextMonthBtn.addEventListener('click', function() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendarHeader();
+        });
+    }
+    
+    function updateCalendarHeader() {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                         'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        if (calendarMonth) {
+            calendarMonth.textContent = `${months[currentMonth]} ${currentYear}`;
+        }
+        
+        // Here you would update the calendar grid as well
+    }
+});
+</script>
+{% endblock %}

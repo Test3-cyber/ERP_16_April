@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+
+{% block title %}Academics - School ERP System{% endblock %}
+
+{% block page_title %}Academics Management{% endblock %}
+{% block current_page %}Academics{% endblock %}
+
+{% block content %}
+<div class="academics-wrapper">
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Manage Academics</h5>
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#addExamModal">
+                            <i class="fas fa-plus me-2"></i> Add Exam
+                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="academicsDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-2"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="academicsDropdown">
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addSubjectModal"><i class="fas fa-book me-2"></i> Add Subject</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignTeacherModal"><i class="fas fa-user-check me-2"></i> Assign Teacher</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#generateReportCardModal"><i class="fas fa-file-alt me-2"></i> Generate Report Cards</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Academic Settings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs" id="academicsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="exams-tab" data-bs-toggle="tab" data-bs-target="#exams" type="button" role="tab">
+                                <i class="fas fa-file-alt me-2"></i> Exams
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="subjects-tab" data-bs-toggle="tab" data-bs-target="#subjects" type="button" role="tab">
+                                <i class="fas fa-book me-2"></i> Subjects
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="timetable-tab" data-bs-toggle="tab" data-bs-target="#timetable" type="button" role="tab">
+                                <i class="fas fa-calendar-alt me-2"></i> Timetable
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="syllabus-tab" data-bs-toggle="tab" data-bs-target="#syllabus" type="button" role="tab">
+                                <i class="fas fa-list-alt me-2"></i> Syllabus
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content mt-4" id="academicsTabContent">
+                        <!-- Exams Tab -->
+                        <div class="tab-pane fade show active" id="exams" role="tabpanel" aria-labelledby="exams-tab">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search exams...">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="examTypeFilter">
+                                        <option value="">All Exam Types</option>
+                                        <option value="Term">Term Examination</option>
+                                        <option value="Monthly">Monthly Test</option>
+                                        <option value="Annual">Annual Examination</option>
+                                        <option value="Quiz">Quiz</option>
+                                        <option value="Practical">Practical Examination</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="examStatusFilter">
+                                        <option value="">All Statuses</option>
+                                        <option value="Scheduled">Scheduled</option>
+                                        <option value="Ongoing">Ongoing</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Exam Name</th>
+                                            <th>Type</th>
+                                            <th>Date Range</th>
+                                            <th>Classes</th>
+                                            <th>Max Marks</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>First Term Examination</td>
+                                            <td>Term</td>
+                                            <td>10 May - 20 May 2023</td>
+                                            <td>Class 1-5</td>
+                                            <td>100</td>
+                                            <td><span class="badge bg-success">Completed</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Half Yearly Examination</td>
+                                            <td>Term</td>
+                                            <td>15 Sep - 25 Sep 2023</td>
+                                            <td>Class 1-5</td>
+                                            <td>100</td>
+                                            <td><span class="badge bg-primary">Scheduled</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Annual Examination</td>
+                                            <td>Annual</td>
+                                            <td>01 Mar - 15 Mar 2024</td>
+                                            <td>Class 1-5</td>
+                                            <td>100</td>
+                                            <td><span class="badge bg-primary">Scheduled</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mathematics Quiz</td>
+                                            <td>Quiz</td>
+                                            <td>15 Jun 2023</td>
+                                            <td>Class 4-5</td>
+                                            <td>50</td>
+                                            <td><span class="badge bg-success">Completed</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Science Project Assessment</td>
+                                            <td>Project</td>
+                                            <td>20 Jul - 25 Jul 2023</td>
+                                            <td>Class 3-5</td>
+                                            <td>100</td>
+                                            <td><span class="badge bg-success">Completed</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Subjects Tab -->
+                        <div class="tab-pane fade" id="subjects" role="tabpanel" aria-labelledby="subjects-tab">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search subjects...">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject Name</th>
+                                            <th>Subject Code</th>
+                                            <th>Classes</th>
+                                            <th>Description</th>
+                                            <th>Teacher</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Mathematics</td>
+                                            <td>MATH</td>
+                                            <td>Class 1-5</td>
+                                            <td>Basic mathematics including arithmetic and basic geometry</td>
+                                            <td>Robert Johnson</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Science</td>
+                                            <td>SCI</td>
+                                            <td>Class 1-5</td>
+                                            <td>General science covering basic concepts in physics, chemistry, and biology</td>
+                                            <td>Mary Williams</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>English</td>
+                                            <td>ENG</td>
+                                            <td>Class 1-5</td>
+                                            <td>English language including grammar, vocabulary, and literature</td>
+                                            <td>James Brown</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Social Studies</td>
+                                            <td>SOC</td>
+                                            <td>Class 1-5</td>
+                                            <td>History, geography, and civics</td>
+                                            <td>Patricia Jones</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Computer Science</td>
+                                            <td>CS</td>
+                                            <td>Class 3-5</td>
+                                            <td>Basic computer concepts and applications</td>
+                                            <td>John Miller</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Timetable Tab -->
+                        <div class="tab-pane fade" id="timetable" role="tabpanel" aria-labelledby="timetable-tab">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="timetableClass" class="form-label">Select Class</label>
+                                    <select class="form-select" id="timetableClass">
+                                        <option value="">Select Class</option>
+                                        <option value="Class 1">Class 1</option>
+                                        <option value="Class 2">Class 2</option>
+                                        <option value="Class 3">Class 3</option>
+                                        <option value="Class 4">Class 4</option>
+                                        <option value="Class 5">Class 5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="timetableSection" class="form-label">Select Section</label>
+                                    <select class="form-select" id="timetableSection">
+                                        <option value="">Select Section</option>
+                                        <option value="A">Section A</option>
+                                        <option value="B">Section B</option>
+                                        <option value="C">Section C</option>
+                                        <option value="D">Section D</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i> View Timetable
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> Please select a class and section to view the timetable.
+                            </div>
+                        </div>
+                        
+                        <!-- Syllabus Tab -->
+                        <div class="tab-pane fade" id="syllabus" role="tabpanel" aria-labelledby="syllabus-tab">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="syllabusClass" class="form-label">Select Class</label>
+                                    <select class="form-select" id="syllabusClass">
+                                        <option value="">Select Class</option>
+                                        <option value="Class 1">Class 1</option>
+                                        <option value="Class 2">Class 2</option>
+                                        <option value="Class 3">Class 3</option>
+                                        <option value="Class 4">Class 4</option>
+                                        <option value="Class 5">Class 5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="syllabusSubject" class="form-label">Select Subject</label>
+                                    <select class="form-select" id="syllabusSubject">
+                                        <option value="">Select Subject</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Science">Science</option>
+                                        <option value="English">English</option>
+                                        <option value="Social Studies">Social Studies</option>
+                                        <option value="Computer Science">Computer Science</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i> View Syllabus
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> Please select a class and subject to view the syllabus.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/academics.js') }}"></script>
+{% endblock %}

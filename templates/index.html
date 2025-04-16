@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - School ERP System{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-primary-light text-primary">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stats-card-title">Total Students</div>
+                <div class="stats-card-value">{{ stats.students_count }}</div>
+                <div class="stats-card-trend">
+                    <i class="fas fa-arrow-up text-success me-1"></i>
+                    <span class="text-success">4.8%</span>
+                    <span class="text-muted">since last month</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-success-light text-success">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stats-card-title">Total Staff</div>
+                <div class="stats-card-value">{{ stats.staff_count }}</div>
+                <div class="stats-card-trend">
+                    <i class="fas fa-arrow-up text-success me-1"></i>
+                    <span class="text-success">2.5%</span>
+                    <span class="text-muted">since last month</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-info-light text-info">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stats-card-title">Total Revenue</div>
+                <div class="stats-card-value">₹{{ "{:,.2f}".format(stats.total_revenue) }}</div>
+                <div class="stats-card-trend">
+                    <i class="fas fa-arrow-up text-success me-1"></i>
+                    <span class="text-success">8.3%</span>
+                    <span class="text-muted">since last month</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card">
+                <div class="stats-card-icon bg-warning-light text-warning">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stats-card-title">Today's Attendance</div>
+                <div class="stats-card-value">{{ stats.attendance_percentage }}%</div>
+                <div class="stats-card-trend">
+                    <i class="fas fa-arrow-down text-danger me-1"></i>
+                    <span class="text-danger">1.2%</span>
+                    <span class="text-muted">since yesterday</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts & Activities -->
+    <div class="row">
+        <!-- Charts -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Revenue & Expenses</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="revenueChartDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i> Download</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i> Print</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-redo me-2"></i> Refresh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <img src="data:image/png;base64,{{ charts.revenue_expense }}" alt="Revenue & Expenses Chart" class="img-fluid">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Student Enrollment</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="enrollmentChartDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i> Download</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i> Print</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-redo me-2"></i> Refresh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <img src="data:image/png;base64,{{ charts.enrollment }}" alt="Student Enrollment Chart" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activities & Notices -->
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Activities</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for activity in recent_activities %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <div class="mb-1">
+                                    <div class="d-flex align-items-center">
+                                        <div class="activity-icon bg-{{ activity.color }}-light text-{{ activity.color }} me-3">
+                                            <i class="fas fa-{{ activity.icon }}"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">{{ activity.title }}</h6>
+                                            <small class="text-muted">{{ activity.description }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <small class="text-muted">{{ activity.time }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-sm btn-link">View All Activities</a>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Notices</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for notice in notices %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ notice.title }}</h6>
+                                <small class="text-muted">{{ notice.date }}</small>
+                            </div>
+                            <p class="mb-1 text-muted">{{ notice.content | truncate(80) }}</p>
+                            <small>Posted by: {{ notice.posted_by }}</small>
+                            {% if notice.attachment %}
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-paperclip me-1"></i> Attachment
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ url_for('notices') }}" class="btn btn-sm btn-link">View All Notices</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Upcoming Events -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Upcoming Events</h5>
+                    <a href="{{ url_for('events') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus me-1"></i> Add Event
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                    <th>Organizer</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for event in events %}
+                                <tr>
+                                    <td>{{ event.title }}</td>
+                                    <td>{{ event.date }}</td>
+                                    <td>{{ event.time }}</td>
+                                    <td>{{ event.location }}</td>
+                                    <td>{{ event.organizer }}</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+    
+    .bg-primary-light {
+        background-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .bg-success-light {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+    
+    .bg-info-light {
+        background-color: rgba(33, 150, 243, 0.1);
+    }
+    
+    .bg-warning-light {
+        background-color: rgba(255, 152, 0, 0.1);
+    }
+    
+    .bg-danger-light {
+        background-color: rgba(244, 67, 54, 0.1);
+    }
+    
+    .stats-card-trend {
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}

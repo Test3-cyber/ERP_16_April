@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+
+{% block title %}Attendance - School ERP System{% endblock %}
+
+{% block page_title %}Attendance Management{% endblock %}
+{% block current_page %}Attendance{% endblock %}
+
+{% block content %}
+<div class="attendance-wrapper">
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Manage Attendance</h5>
+                    <div class="d-flex">
+                        <div class="dropdown me-2">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="markAttendanceDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-clipboard-check me-2"></i> Mark Attendance
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="markAttendanceDropdown">
+                                {% for class_name in classes %}
+                                    {% for section in classes[class_name] %}
+                                        <li><a class="dropdown-item mark-attendance-btn" href="#" data-class-id="{{ class_name }}-{{ section }}">Class {{ class_name }} - Section {{ section }}</a></li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="attendanceActionDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog me-2"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="attendanceActionDropdown">
+                                <li><a class="dropdown-item" href="#" id="generateAttendanceReport"><i class="fas fa-file-alt me-2"></i> Generate Report</a></li>
+                                <li><a class="dropdown-item" href="#" id="sendAbsentNotification"><i class="fas fa-bell me-2"></i> Send Absent Notifications</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="attendanceSettings"><i class="fas fa-cog me-2"></i> Attendance Settings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <label for="classFilter" class="form-label">Class</label>
+                            <select class="form-select" id="classFilter">
+                                <option value="all">All Classes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sectionFilter" class="form-label">Section</label>
+                            <select class="form-select" id="sectionFilter">
+                                <option value="all">All Sections</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="attendanceDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="attendanceDate" value="{{ today }}">
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" id="viewAttendanceBtn">
+                                <i class="fas fa-search me-2"></i> View Attendance
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="attendance-stats mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Present</h6>
+                                        <div class="d-flex align-items-center">
+                                            <div class="attendance-icon bg-success-light text-success me-3">
+                                                <i class="fas fa-user-check"></i>
+                                            </div>
+                                            <div class="fs-4 fw-bold">18</div>
+                                            <div class="ms-auto">
+                                                <span class="badge bg-success">90%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Absent</h6>
+                                        <div class="d-flex align-items-center">
+                                            <div class="attendance-icon bg-danger-light text-danger me-3">
+                                                <i class="fas fa-user-times"></i>
+                                            </div>
+                                            <div class="fs-4 fw-bold">2</div>
+                                            <div class="ms-auto">
+                                                <span class="badge bg-danger">10%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Late</h6>
+                                        <div class="d-flex align-items-center">
+                                            <div class="attendance-icon bg-warning-light text-warning me-3">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                            <div class="fs-4 fw-bold">0</div>
+                                            <div class="ms-auto">
+                                                <span class="badge bg-warning">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Students</h6>
+                                        <div class="d-flex align-items-center">
+                                            <div class="attendance-icon bg-info-light text-info me-3">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                            <div class="fs-4 fw-bold">20</div>
+                                            <div class="ms-auto">
+                                                <span class="badge bg-info">100%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="alertPlaceholder"></div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="attendanceTable">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Student Name</th>
+                                    <th>Class</th>
+                                    <th>Attendance</th>
+                                    <th>Remarks</th>
+                                    <th>Marked By</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if today_attendance %}
+                                    {% for attendance in today_attendance %}
+                                    <tr>
+                                        <td>{{ attendance.student_id }}</td>
+                                        <td>{{ attendance.student_name }}</td>
+                                        <td>Class {{ attendance.class }} - {{ attendance.section }}</td>
+                                        <td>
+                                            {% if attendance.status == 'Present' %}
+                                                <span class="badge bg-success">Present</span>
+                                            {% elif attendance.status == 'Absent' %}
+                                                <span class="badge bg-danger">Absent</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Late</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ attendance.remarks|default('-') }}</td>
+                                        <td>{{ attendance.marked_by }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>1001</td>
+                                    <td>John Doe</td>
+                                    <td>Class 5 - A</td>
+                                    <td><span class="badge bg-success">Present</span></td>
+                                    <td>-</td>
+                                    <td>Robert Johnson</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1003</td>
+                                    <td>David Johnson</td>
+                                    <td>Class 5 - A</td>
+                                    <td><span class="badge bg-danger">Absent</span></td>
+                                    <td>Sick leave</td>
+                                    <td>Robert Johnson</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1012</td>
+                                    <td>Isabella Thomas</td>
+                                    <td>Class 5 - A</td>
+                                    <td><span class="badge bg-success">Present</span></td>
+                                    <td>-</td>
+                                    <td>Robert Johnson</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1002</td>
+                                    <td>Jane Smith</td>
+                                    <td>Class 4 - B</td>
+                                    <td><span class="badge bg-success">Present</span></td>
+                                    <td>-</td>
+                                    <td>Mary Williams</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1005</td>
+                                    <td>Michael Brown</td>
+                                    <td>Class 4 - B</td>
+                                    <td><span class="badge bg-success">Present</span></td>
+                                    <td>-</td>
+                                    <td>Mary Williams</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Class Attendance Cards -->
+    <div class="row">
+        {% for class_name, sections in classes.items() %}
+            {% for section in sections %}
+                <div class="col-lg-4 col-md-6 mb-4 attendance-card" data-class-id="{{ class_name }}-{{ section }}">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Class {{ class_name }} - Section {{ section }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="text-center">
+                                    <h2 class="mb-0 text-success">90%</h2>
+                                    <small class="text-muted">Present</small>
+                                </div>
+                                <div class="text-center">
+                                    <h2 class="mb-0 text-danger">10%</h2>
+                                    <small class="text-muted">Absent</small>
+                                </div>
+                                <div class="text-center">
+                                    <h2 class="mb-0 text-info">30</h2>
+                                    <small class="text-muted">Students</small>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary mark-attendance-btn" data-class-id="{{ class_name }}-{{ section }}">
+                                    <i class="fas fa-clipboard-check me-2"></i> Mark Attendance
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-lg-4 col-md-6 mb-4 attendance-card" data-class-id="1-A">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Class 1 - Section A</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="text-center">
+                                <h2 class="mb-0 text-success">90%</h2>
+                                <small class="text-muted">Present</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-danger">10%</h2>
+                                <small class="text-muted">Absent</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-info">30</h2>
+                                <small class="text-muted">Students</small>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary mark-attendance-btn" data-class-id="1-A">
+                                <i class="fas fa-clipboard-check me-2"></i> Mark Attendance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 attendance-card" data-class-id="2-B">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Class 2 - Section B</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="text-center">
+                                <h2 class="mb-0 text-success">85%</h2>
+                                <small class="text-muted">Present</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-danger">15%</h2>
+                                <small class="text-muted">Absent</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-info">28</h2>
+                                <small class="text-muted">Students</small>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary mark-attendance-btn" data-class-id="2-B">
+                                <i class="fas fa-clipboard-check me-2"></i> Mark Attendance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 attendance-card" data-class-id="3-A">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Class 3 - Section A</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="text-center">
+                                <h2 class="mb-0 text-success">92%</h2>
+                                <small class="text-muted">Present</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-danger">8%</h2>
+                                <small class="text-muted">Absent</small>
+                            </div>
+                            <div class="text-center">
+                                <h2 class="mb-0 text-info">25</h2>
+                                <small class="text-muted">Students</small>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary mark-attendance-btn" data-class-id="3-A">
+                                <i class="fas fa-clipboard-check me-2"></i> Mark Attendance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Mark Attendance Form Template (will be dynamically filled) -->
+<div class="modal fade" id="markAttendanceModal" tabindex="-1" aria-labelledby="markAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="markAttendanceModalLabel">Mark Attendance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="attendanceForm">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="markClass" class="form-label">Class</label>
+                            <input type="text" class="form-control" id="markClass" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="markSection" class="form-label">Section</label>
+                            <input type="text" class="form-control" id="markSection" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="markDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="markDate" value="{{ today }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="markedBy" class="form-label">Marked By</label>
+                        <input type="text" class="form-control" id="markedBy" required placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="mb-3 text-end">
+                        <button type="button" class="btn btn-sm btn-success" id="selectAllPresent">Mark All Present</button>
+                        <button type="button" class="btn btn-sm btn-danger" id="selectAllAbsent">Mark All Absent</button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Student Name</th>
+                                    <th>Attendance</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceStudentsList">
+                                <tr>
+                                    <td colspan="4" class="text-center">Loading students...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitAttendance">Save Attendance</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/attendance.js') }}"></script>
+{% endblock %}
