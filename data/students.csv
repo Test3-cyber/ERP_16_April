@@ -1,0 +1,16 @@
+id,admission_no,roll_no,first_name,last_name,gender,dob,class,section,parent_name,contact,email,address,admission_date,fee_status
+1,ERPS001,1001,John,Doe,Male,2010-05-15,Class 5,A,Michael Doe,9876543210,michael.doe@example.com,"123 Main St, Anytown",2021-03-10,Paid
+2,ERPS002,1002,Jane,Smith,Female,2011-07-22,Class 4,B,Robert Smith,8765432109,robert.smith@example.com,"456 Oak Ave, Somewhere",2021-04-15,Pending
+3,ERPS003,1003,David,Johnson,Male,2010-02-28,Class 5,A,Sarah Johnson,7654321098,sarah.johnson@example.com,"789 Pine St, Nowhere",2021-03-20,Partial
+4,ERPS004,1004,Emily,Williams,Female,2012-09-10,Class 3,C,James Williams,6543210987,james.williams@example.com,"101 Elm St, Anyplace",2021-05-05,Paid
+5,ERPS005,1005,Michael,Brown,Male,2011-11-18,Class 4,B,Linda Brown,5432109876,linda.brown@example.com,"202 Cedar Rd, Someplace",2021-04-20,Paid
+6,ERPS006,1006,Sophia,Davis,Female,2010-08-24,Class 5,C,Mark Davis,4321098765,mark.davis@example.com,"303 Birch Ln, Elsewhere",2021-03-15,Pending
+7,ERPS007,1007,Daniel,Miller,Male,2012-01-30,Class 3,A,Patricia Miller,3210987654,patricia.miller@example.com,"404 Maple Dr, Nowhere",2021-05-10,Paid
+8,ERPS008,1008,Olivia,Wilson,Female,2011-04-12,Class 4,A,Thomas Wilson,2109876543,thomas.wilson@example.com,"505 Walnut Pl, Somewhere",2021-04-10,Partial
+9,ERPS009,1009,William,Moore,Male,2010-12-05,Class 5,B,Jennifer Moore,1098765432,jennifer.moore@example.com,"606 Spruce Ct, Anytown",2021-03-25,Paid
+10,ERPS010,1010,Ava,Taylor,Female,2012-06-20,Class 3,B,Richard Taylor,9987654321,richard.taylor@example.com,"707 Pine Ave, Someplace",2021-05-15,Pending
+11,ERPS011,1011,James,Anderson,Male,2011-03-08,Class 4,C,Mary Anderson,8876543210,mary.anderson@example.com,"808 Oak Ln, Elsewhere",2021-04-25,Paid
+12,ERPS012,1012,Isabella,Thomas,Female,2010-10-14,Class 5,A,Charles Thomas,7765432109,charles.thomas@example.com,"909 Elm Rd, Nowhere",2021-03-18,Paid
+13,ERPS013,1013,Benjamin,Jackson,Male,2012-02-17,Class 3,C,Elizabeth Jackson,6654321098,elizabeth.jackson@example.com,"111 Cedar St, Anywhere",2021-05-08,Partial
+14,ERPS014,1014,Mia,White,Female,2011-08-29,Class 4,A,Joseph White,5543210987,joseph.white@example.com,"222 Birch Ave, Somewhere",2021-04-12,Paid
+15,ERPS015,1015,Alexander,Harris,Male,2010-06-03,Class 5,B,Susan Harris,4432109876,susan.harris@example.com,"333 Maple Blvd, Anytown",2021-03-22,Pending

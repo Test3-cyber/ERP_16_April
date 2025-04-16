@@ -1,0 +1,12 @@
+
+Student ID,Admission Number,Roll Number,First Name,Last Name,Initial,Date of Birth,Gender,Class,Section,Date of Admission,Father Name,Mother Name,Guardian Name,Primary Contact,Secondary Contact,Email,Address,City,State,Postal Code,Nationality,Blood Group,Medical Info,Previous School
+1,A001,1010,Aarav,Sharma,R,15-03-2008,Male,II,A,01-06-2018,Rajesh Sharma,Pooja Sharma,Rajesh Sharma,9876543210,8765432109,aarav.sharma@example.com,12 MG Road,Delhi,Delhi,110001,Indian,O+,None,Delhi Public School
+2,A002,911,Ishita,Verma,S,20-05-2009,Female,II,B,15-07-2019,Sandeep Verma,Anita Verma,Sandeep Verma,9876543211,8765432110,ishita.verma@example.com,45 Park Street,Kolkata,West Bengal,700016,Indian,A+,Asthma,La Martiniere Kolkata
+3,A003,1012,Virat,Patel,A,02-11-2008,Male,III,A,20-08-2018,Amit Patel,Sneha Patel,Amit Patel,9876543212,8765432111,virat.patel@example.com,32 Nehru Nagar,Mumbai,Maharashtra,400001,Indian,B-,Peanut Allergy,St. Xavier's Mumbai
+4,A004,913,Diya,Nair,R,30-01-2009,Female,III,B,10-05-2019,Ravi Nair,Meera Nair,Ravi Nair,9876543213,8765432112,diya.nair@example.com,78 Brigade Road,Bangalore,Karnataka,560001,Indian,AB+,Diabetic,Bishop Cotton Bangalore
+5,A005,1014,Krishna,Reddy,S,17-09-2008,Male,IV,B,01-09-2018,Srikanth Reddy,Savitha Reddy,Srikanth Reddy,9876543214,8765432113,krishna.reddy@example.com,15 Jubilee Hills,Hyderabad,Telangana,500033,Indian,O-,None,Hyderabad Public School
+6,A006,815,Neha,Chopra,S,11-07-2010,Female,IV,A,20-06-2020,Sudhir Chopra,Rekha Chopra,Sudhir Chopra,9876543215,8765432114,neha.chopra@example.com,90 Gopalapuram,Chennai,Tamil Nadu,600086,Indian,B+,None,Chinmaya Vidyalaya Chennai
+7,A007,816,Arjun,Mishra,M,05-10-2010,Male,IV,B,25-07-2020,Manoj Mishra,Sunita Mishra,Manoj Mishra,9876543216,8765432115,arjun.mishra@example.com,28 Hazratganj,Lucknow,Uttar Pradesh,226001,Indian,AB-,Asthma,City Montessori School
+8,A008,717,Ananya,Das,P,18-02-2011,Female,IV,A,30-05-2021,Pradip Das,Rima Das,Pradip Das,9876543217,8765432116,ananya.das@example.com,77 Ballygunge,Kolkata,West Bengal,700019,Indian,A-,Nut Allergy,Modern High School
+9,A009,718,Rohan,Gupta,R,08-09-2011,Male,IV,A,12-08-2021,Rakesh Gupta,Anjali Gupta,Rakesh Gupta,9876543218,8765432117,rohan.gupta@example.com,65 Connaught Place,Delhi,Delhi,110001,Indian,O+,None,Springdales School
+10,A010,619,Sanya,Joshi,V,22-06-2012,Female,IV,B,15-06-2022,Vikram Joshi,Deepa Joshi,Vikram Joshi,9876543219,8765432118,sanya.joshi@example.com,120 FC Road,Pune,Maharashtra,411004,Indian,B-,None,Hutchings High School

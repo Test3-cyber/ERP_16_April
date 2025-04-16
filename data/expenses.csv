@@ -1,0 +1,16 @@
+id,date,category,amount,payment_method,reference_no,description,approved_by,status
+1,2023-04-05,Salary,675000,Bank Transfer,BTR123456,Staff salary for March 2023,ERPT007,Paid
+2,2023-04-10,Utilities,25000,Cheque,CHQ789012,Electricity bill for March 2023,ERPT014,Paid
+3,2023-04-10,Utilities,15000,Cheque,CHQ789013,Water bill for March 2023,ERPT014,Paid
+4,2023-04-12,Maintenance,35000,Cash,,Building maintenance and repairs,ERPT007,Paid
+5,2023-04-15,Supplies,18000,Cash,,Office supplies and stationery,ERPT014,Paid
+6,2023-04-18,Transportation,30000,Cheque,CHQ789014,Fuel and maintenance for school buses,ERPT007,Paid
+7,2023-04-20,Events,25000,Cash,,Annual day preparation expenses,ERPT007,Paid
+8,2023-04-22,Utilities,8000,Cheque,CHQ789015,Internet bill for April 2023,ERPT014,Paid
+9,2023-04-25,Maintenance,12000,Cash,,Plumbing repairs in washrooms,ERPT007,Paid
+10,2023-04-28,Supplies,15000,Cash,,Lab supplies and chemicals,ERPT014,Paid
+11,2023-05-05,Salary,675000,Bank Transfer,BTR123457,Staff salary for April 2023,ERPT007,Paid
+12,2023-05-08,Utilities,28000,Cheque,CHQ789016,Electricity bill for April 2023,ERPT014,Paid
+13,2023-05-08,Utilities,16000,Cheque,CHQ789017,Water bill for April 2023,ERPT014,Paid
+14,2023-05-10,Transportation,32000,Cheque,CHQ789018,Fuel and maintenance for school buses,ERPT007,Paid
+15,2023-05-12,Marketing,20000,Cash,,Advertisements and promotions,ERPT014,Paid

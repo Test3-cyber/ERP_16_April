@@ -1,0 +1,21 @@
+id,exam_id,student_id,subject,marks_obtained,remarks,grade,evaluated_by
+1,1,1,Mathematics,87,Excellent,A,ERPT001
+2,1,1,Science,78,Good performance,B,ERPT002
+3,1,1,English,82,Well done,B,ERPT003
+4,1,2,Mathematics,65,Need improvement,C,ERPT001
+5,1,2,Science,72,Good,B,ERPT002
+6,1,2,English,85,Excellent vocabulary,A,ERPT003
+7,1,3,Mathematics,92,Outstanding,A+,ERPT001
+8,1,3,Science,88,Great work,A,ERPT002
+9,1,3,English,76,Good,B,ERPT003
+10,1,4,Mathematics,56,Needs practice,D,ERPT001
+11,1,4,Science,62,Can improve,C,ERPT002
+12,1,4,English,70,Good effort,B,ERPT003
+13,1,5,Mathematics,83,Very good,B,ERPT001
+14,1,5,Science,79,Good understanding,B,ERPT002
+15,1,5,English,88,Excellent,A,ERPT003
+16,4,1,Mathematics,45,Outstanding,A,ERPT001
+17,4,3,Mathematics,48,Excellent,A+,ERPT001
+18,4,12,Mathematics,36,Good,B,ERPT001
+19,4,9,Mathematics,42,Very good,A,ERPT001
+20,4,15,Mathematics,30,Average,C,ERPT001

@@ -1,0 +1,11 @@
+id,name,type,start_date,end_date,applicable_classes,max_marks,passing_marks,created_by,status
+1,First Term Examination,Term,2023-05-10,2023-05-20,"Class 1,Class 2,Class 3,Class 4,Class 5",100,35,ERPT001,Completed
+2,Half Yearly Examination,Term,2023-09-15,2023-09-25,"Class 1,Class 2,Class 3,Class 4,Class 5",100,35,ERPT001,Scheduled
+3,Annual Examination,Annual,2024-03-01,2024-03-15,"Class 1,Class 2,Class 3,Class 4,Class 5",100,35,ERPT001,Scheduled
+4,Mathematics Quiz,Quiz,2023-06-15,2023-06-15,"Class 4,Class 5",50,18,ERPT001,Completed
+5,Science Project Assessment,Project,2023-07-20,2023-07-25,"Class 3,Class 4,Class 5",100,40,ERPT002,Completed
+6,Monthly Test - April,Monthly,2023-04-25,2023-04-25,"Class 1,Class 2,Class 3,Class 4,Class 5",50,18,ERPT003,Completed
+7,Monthly Test - May,Monthly,2023-05-28,2023-05-28,"Class 1,Class 2,Class 3,Class 4,Class 5",50,18,ERPT003,Completed
+8,English Essay Competition,Competition,2023-06-10,2023-06-10,"Class 3,Class 4,Class 5",100,0,ERPT003,Completed
+9,Computer Practical Exam,Practical,2023-05-22,2023-05-24,"Class 4,Class 5",50,20,ERPT005,Completed
+10,Art Assessment,Assessment,2023-06-05,2023-06-05,"Class 1,Class 2,Class 3,Class 4,Class 5",50,15,ERPT006,Completed

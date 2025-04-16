@@ -1,0 +1,11 @@
+id,name,code,applicable_classes,description,teacher_id
+1,Mathematics,MATH,"Class 1,Class 2,Class 3,Class 4,Class 5",Basic mathematics including arithmetic and basic geometry,ERPT001
+2,Science,SCI,"Class 1,Class 2,Class 3,Class 4,Class 5",General science covering basic concepts in physics, chemistry, and biology,ERPT002
+3,English,ENG,"Class 1,Class 2,Class 3,Class 4,Class 5",English language including grammar, vocabulary, and literature,ERPT003
+4,Social Studies,SOC,"Class 1,Class 2,Class 3,Class 4,Class 5",History, geography, and civics,ERPT004
+5,Computer Science,CS,"Class 3,Class 4,Class 5",Basic computer concepts and applications,ERPT005
+6,Arts,ARTS,"Class 1,Class 2,Class 3,Class 4,Class 5",Drawing, painting, and craft,ERPT006
+7,Physical Education,PE,"Class 1,Class 2,Class 3,Class 4,Class 5",Physical fitness, sports, and games,ERPT008
+8,Hindi,HIN,"Class 1,Class 2,Class 3,Class 4,Class 5",Hindi language and literature,ERPT015
+9,Environmental Studies,EVS,"Class 1,Class 2,Class 3",Basic environment awareness and nature studies,ERPT002
+10,Moral Science,MS,"Class 1,Class 2,Class 3,Class 4,Class 5",Values education and ethics,ERPT011

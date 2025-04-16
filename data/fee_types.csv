@@ -1,0 +1,16 @@
+id,name,amount,frequency,description,applicable_class,category
+1,Tuition Fee,5000,Monthly,Regular monthly tuition fees,All,Academic
+2,Library Fee,1000,Yearly,Annual library maintenance fee,All,Academic
+3,Computer Lab Fee,1500,Yearly,Computer lab usage and maintenance,Class 3-Class 12,Academic
+4,Science Lab Fee,2000,Yearly,Science laboratory equipment and materials,Class 6-Class 12,Academic
+5,Sports Fee,1200,Yearly,Sports equipment and facilities maintenance,All,Extracurricular
+6,Transport Fee,2500,Monthly,School bus transportation service,All,Services
+7,Examination Fee,1800,Term,Examination materials and evaluation,All,Academic
+8,Activity Fee,1000,Yearly,Extracurricular activities and clubs,All,Extracurricular
+9,Development Fee,3000,Yearly,School infrastructure development,All,Miscellaneous
+10,Admission Fee,5000,One Time,One-time admission processing fee,All,Administrative
+11,Annual Fee,4000,Yearly,Annual administrative charges,All,Administrative
+12,Caution Deposit,10000,One Time,Refundable security deposit,All,Deposit
+13,ID Card Fee,200,Yearly,Student identification card,All,Administrative
+14,Uniform Fee,3500,Yearly,School uniforms (2 sets),All,Miscellaneous
+15,Excursion Fee,2500,Yearly,Educational trips and excursions,All,Extracurricular

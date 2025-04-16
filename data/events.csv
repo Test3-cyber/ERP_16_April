@@ -1,0 +1,11 @@
+id,name,date,time,venue,description,coordinator,participants,status
+1,Annual Day Celebration,2023-12-15,10:00 AM,School Auditorium,Annual cultural program with performances by students,ERPT006,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+2,Sports Day,2023-11-20,09:00 AM,School Playground,Annual sports competition with various athletic events,ERPT008,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+3,Science Exhibition,2023-09-10,10:30 AM,School Hall,Display of student science projects and innovations,ERPT002,"Class 3,Class 4,Class 5",Scheduled
+4,Parent-Teacher Meeting,2023-07-22,09:00 AM,Respective Classrooms,Discussion about student progress and performance,ERPT007,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+5,Independence Day Celebration,2023-08-15,08:00 AM,School Ground,Flag hoisting and cultural program,ERPT004,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+6,Mathematics Quiz Competition,2023-08-25,11:00 AM,School Hall,Inter-class math quiz competition,ERPT001,"Class 4,Class 5",Scheduled
+7,English Debate Competition,2023-09-18,01:00 PM,School Auditorium,Debate on various current topics,ERPT003,"Class 4,Class 5",Scheduled
+8,Art and Craft Exhibition,2023-10-05,10:00 AM,Art Room,Display of student artwork and craft projects,ERPT006,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+9,Children's Day Celebration,2023-11-14,10:00 AM,School Ground,Special program and activities for children,ERPT007,"Class 1,Class 2,Class 3,Class 4,Class 5",Scheduled
+10,Computer Skills Workshop,2023-08-10,09:30 AM,Computer Lab,Workshop on basic computer skills and coding,ERPT005,"Class 3,Class 4,Class 5",Scheduled

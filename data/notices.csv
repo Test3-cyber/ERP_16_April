@@ -1,0 +1,11 @@
+id,date,title,content,category,posted_by,visible_to,status
+1,2023-04-03,First Term Examination Schedule,"The First Term Examination will be conducted from May 10th to May 20th, 2023. Students are advised to prepare accordingly.",Examination,ERPT007,"Students,Parents,Staff",Active
+2,2023-04-05,School Annual Day Preparations,"Preparations for Annual Day celebration have begun. Students interested in participating in cultural programs should contact their class teachers by April 15th.",Events,ERPT006,"Students,Parents,Staff",Active
+3,2023-04-10,Fee Payment Reminder,"This is a reminder that the fees for the month of April should be paid by April 20th. Late payment will incur an additional charge.",Finance,ERPT014,"Students,Parents",Active
+4,2023-04-12,Parent-Teacher Meeting,"A Parent-Teacher Meeting will be held on April 22nd from 9:00 AM to 12:00 PM. Parents are requested to attend without fail.",Meetings,ERPT007,"Parents,Staff",Active
+5,2023-04-15,Summer Vacation Announcement,"Summer vacation will commence from May 25th and the school will reopen on July 5th. The exact schedule will be announced later.",Holiday,ERPT007,"Students,Parents,Staff",Active
+6,2023-04-18,Sports Day Postponed,"Due to the forecast of heavy rainfall, the Sports Day event scheduled for April 25th has been postponed to May 2nd.",Events,ERPT008,"Students,Parents,Staff",Active
+7,2023-04-20,New Library Books,"New books have been added to the library collection. Students can start borrowing these books from April 24th onwards.",Library,ERPT012,"Students,Staff",Active
+8,2023-04-22,Computer Lab Schedule Change,"The computer lab schedule has been revised. New schedule will be effective from April 25th. Please check the notice board for details.",Academic,ERPT005,"Students,Staff",Active
+9,2023-04-25,Career Counseling Session,"A career counseling session for Class 5 students will be conducted on April 30th. Parents are also encouraged to attend.",Guidance,ERPT007,"Students,Parents",Active
+10,2023-04-28,School Magazine Contributions,"Students interested in contributing articles, poems, or artwork for the school magazine should submit their entries by May 15th.",Extra-curricular,ERPT003,"Students,Staff",Active

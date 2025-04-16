@@ -1,0 +1,21 @@
+id,date,class,section,student_id,status,marked_by,remarks
+1,2023-04-03,Class 5,A,1,Present,ERPT001,
+2,2023-04-03,Class 5,A,3,Present,ERPT001,
+3,2023-04-03,Class 5,A,12,Absent,ERPT001,Sick leave
+4,2023-04-03,Class 4,B,2,Present,ERPT002,
+5,2023-04-03,Class 4,B,5,Present,ERPT002,
+6,2023-04-03,Class 4,B,8,Present,ERPT002,
+7,2023-04-03,Class 5,B,9,Present,ERPT001,
+8,2023-04-03,Class 5,B,15,Absent,ERPT001,Family function
+9,2023-04-03,Class 3,C,4,Present,ERPT003,
+10,2023-04-03,Class 3,C,13,Present,ERPT003,
+11,2023-04-04,Class 5,A,1,Present,ERPT001,
+12,2023-04-04,Class 5,A,3,Absent,ERPT001,Sick leave
+13,2023-04-04,Class 5,A,12,Present,ERPT001,
+14,2023-04-04,Class 4,B,2,Present,ERPT002,
+15,2023-04-04,Class 4,B,5,Present,ERPT002,
+16,2023-04-04,Class 4,B,8,Present,ERPT002,
+17,2023-04-04,Class 5,B,9,Present,ERPT001,
+18,2023-04-04,Class 5,B,15,Present,ERPT001,
+19,2023-04-04,Class 3,C,4,Absent,ERPT003,Doctor appointment
+20,2023-04-04,Class 3,C,13,Present,ERPT003,

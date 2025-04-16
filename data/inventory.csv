@@ -1,0 +1,16 @@
+id,name,category,quantity,unit,purchase_date,supplier,cost_per_unit,total_cost,location,status
+1,Student Desks,Furniture,100,Nos,2023-01-15,School Supplies Ltd,2500,250000,Classrooms,In Use
+2,Teacher Chairs,Furniture,20,Nos,2023-01-15,School Supplies Ltd,3000,60000,Classrooms,In Use
+3,Whiteboards,Furniture,15,Nos,2023-01-20,Office Mart,4500,67500,Classrooms,In Use
+4,Desktop Computers,IT Equipment,30,Nos,2023-02-10,Tech Solutions Inc,35000,1050000,Computer Lab,In Use
+5,Science Lab Equipment Kit,Lab Equipment,10,Sets,2023-02-15,Science Supplies Co.,25000,250000,Science Lab,In Use
+6,Sports Equipment Set,Sports,5,Sets,2023-03-05,Sports Goods Ltd,15000,75000,Sports Room,In Use
+7,Library Books,Books,500,Nos,2023-03-10,Educational Books Inc,400,200000,Library,In Use
+8,Projectors,IT Equipment,8,Nos,2023-01-25,Tech Solutions Inc,30000,240000,Classrooms,In Use
+9,Printers,IT Equipment,5,Nos,2023-02-10,Tech Solutions Inc,18000,90000,Admin Office,In Use
+10,Musical Instruments Set,Music,2,Sets,2023-03-20,Arts & Music Store,50000,100000,Music Room,In Use
+11,Office Stationery,Stationery,50,Boxes,2023-04-05,Office Mart,1000,50000,Admin Office,In Use
+12,Student Chairs,Furniture,100,Nos,2023-01-15,School Supplies Ltd,1500,150000,Classrooms,In Use
+13,First Aid Kits,Medical,10,Kits,2023-04-10,Health Supplies Inc,2000,20000,Health Room,In Use
+14,Water Dispensers,Appliances,10,Nos,2023-03-15,Office Mart,8000,80000,Corridors,In Use
+15,CCTV Cameras,Security,20,Nos,2023-02-20,Security Systems Ltd,5000,100000,Campus,In Use

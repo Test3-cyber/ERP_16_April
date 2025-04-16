@@ -1,0 +1,16 @@
+id,emp_id,first_name,last_name,gender,dob,role,department,qualification,experience,join_date,contact,email,address,salary
+1,ERPT001,Robert,Johnson,Male,1985-07-12,Teacher,Mathematics,M.Sc. Mathematics,8,2018-06-15,9876543210,robert.johnson@example.com,"123 Teacher St, Anytown",45000
+2,ERPT002,Mary,Williams,Female,1982-04-25,Teacher,Science,M.Sc. Physics,10,2016-08-10,8765432109,mary.williams@example.com,"456 Faculty Ave, Somewhere",48000
+3,ERPT003,James,Brown,Male,1990-11-30,Teacher,English,M.A. English Literature,5,2019-07-20,7654321098,james.brown@example.com,"789 Professor St, Nowhere",42000
+4,ERPT004,Patricia,Jones,Female,1987-03-18,Teacher,History,M.A. History,7,2017-06-05,6543210987,patricia.jones@example.com,"101 Instructor St, Anyplace",44000
+5,ERPT005,John,Miller,Male,1983-09-22,Teacher,Computer Science,M.Tech Computer Science,9,2015-08-12,5432109876,john.miller@example.com,"202 Coach Rd, Someplace",50000
+6,ERPT006,Linda,Davis,Female,1988-12-10,Teacher,Arts,M.F.A. Fine Arts,6,2019-01-15,4321098765,linda.davis@example.com,"303 Educator Ln, Elsewhere",43000
+7,ERPT007,David,Garcia,Male,1980-06-04,Administrator,Administration,MBA,12,2014-04-10,3210987654,david.garcia@example.com,"404 Admin Dr, Nowhere",55000
+8,ERPT008,Elizabeth,Wilson,Female,1986-02-16,Teacher,Physical Education,B.P.Ed,8,2017-07-22,2109876543,elizabeth.wilson@example.com,"505 Coach Pl, Somewhere",43000
+9,ERPT009,Michael,Martinez,Male,1984-08-29,Teacher,Mathematics,M.Sc. Mathematics,9,2016-06-18,1098765432,michael.martinez@example.com,"606 Teacher Ct, Anytown",46000
+10,ERPT010,Jennifer,Anderson,Female,1989-05-11,Teacher,Science,M.Sc. Chemistry,6,2018-08-01,9987654321,jennifer.anderson@example.com,"707 Faculty Ave, Someplace",44000
+11,ERPT011,William,Taylor,Male,1982-01-23,Teacher,Social Studies,M.A. Sociology,11,2015-07-10,8876543210,william.taylor@example.com,"808 Professor Ln, Elsewhere",49000
+12,ERPT012,Susan,Thomas,Female,1987-10-05,Librarian,Library,M.Lib. Science,7,2017-09-12,7765432109,susan.thomas@example.com,"909 Librarian Rd, Nowhere",42000
+13,ERPT013,Joseph,Jackson,Male,1990-04-17,Teacher,Music,M.A. Music,5,2019-06-20,6654321098,joseph.jackson@example.com,"111 Music St, Anywhere",41000
+14,ERPT014,Margaret,White,Female,1981-12-09,Administrator,Finance,MBA Finance,13,2014-02-15,5543210987,margaret.white@example.com,"222 Finance Ave, Somewhere",56000
+15,ERPT015,Charles,Harris,Male,1985-03-21,Teacher,Languages,M.A. Spanish,8,2017-08-10,4432109876,charles.harris@example.com,"333 Language Blvd, Anytown",45000
